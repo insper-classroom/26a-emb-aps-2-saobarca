@@ -70,34 +70,3 @@ A proposta mecânica inicial é:
 | Gesto detectado | Cor muda rapidamente conforme o comando |
 | Erro ou falha de leitura | LED vermelho |
 
-### Tasks previstas
-
-| Task | Função |
-|---|---|
-| `imu_task` | Lê dados da IMU periodicamente |
-| `ai_task` | Executa a inferência do modelo de IA |
-| `command_task` | Converte a classe detectada em comando do jogo |
-| `serial_task` | Envia comandos para o computador |
-| `led_task` | Atualiza o LED RGB de acordo com o estado do sistema |
-| `button_task` | Trata eventos dos botões recebidos por interrupção |
-
-### Filas previstas
-
-| Fila | Origem | Destino | Conteúdo |
-|---|---|---|---|
-| `imu_queue` | `imu_task` | `ai_task` | Janela de dados da IMU |
-| `gesture_queue` | `ai_task` | `command_task` | Classe detectada pela IA |
-| `command_queue` | `command_task` | `serial_task` | Comando final para o jogo |
-| `led_queue` | Tasks do sistema | `led_task` | Estado visual do controle |
-| `button_queue` | ISR dos botões | `button_task` | Evento de botão pressionado |
-
-### Semáforos previstos
-
-| Semáforo | Função |
-|---|---|
-| `semaphore_i2c` | Evitar acesso simultâneo ao barramento I2C |
-| `semaphore_serial` | Evitar conflito no envio de mensagens pela serial |
-
-### ISR
-
-Os botões físicos serão tratados por interrupção. A ISR não executará lógica pesada. Ela apenas enviará um evento para a `button_queue`, e o tratamento será feito depois pela `button_task`.
