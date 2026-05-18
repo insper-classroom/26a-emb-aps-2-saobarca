@@ -1,4 +1,4 @@
-
+![Sketch](OI.png)
 ## Ideia do projeto
 A proposta do nosso jogo é um controle para o Temple Run.
 
